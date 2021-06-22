@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'idea'
+}
+
+group 'com.constantine'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.3.12.RELEASE'
+    compile 'org.hashids:hashids:1.0.1'
+    compile 'org.springframework:spring-orm:4.2.5.RELEASE'
+    compile 'org.hibernate:hibernate-core:5.2.1.Final'
+    compile 'org.apache.tomcat:tomcat-dbcp:8.0.32'
+    compile 'com.h2database:h2:1.4.191'
+
+    compile 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
+    compile 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
+}
