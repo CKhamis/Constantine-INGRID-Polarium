@@ -11,7 +11,8 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.3.12.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.3.RELEASE'
     compile 'org.hashids:hashids:1.0.1'
     compile 'org.springframework:spring-orm:4.2.5.RELEASE'
     compile 'org.hibernate:hibernate-core:5.2.1.Final'
