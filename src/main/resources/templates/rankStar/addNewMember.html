@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="assets :: head('RankStar')"></head>
+<body class="bg-dark">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 col-xs-12 p-0 bg-light min-vh-100">
+            <div th:replace="assets :: leftNav('Add New Member')"></div>
+            <div class="container-fluid">
+                <a href="/index.html">< Return to Main</a>
+                <form th:action="@{${action}}" method="post" th:object="${person}">
+                    <h2>Profile Image</h2>
+                    <hr />
+                    <div class="row">
+                        <div class="col s12 l8">
+                            <div class="file-wrapper">
+                                <input type="file" id="file" name="file"/>
+                                <span class="placeholder" data-placeholder="Choose an image...">Choose an image...</span>
+                                <label for="file" class="button">Browse</label>
+                            </div>
+                        </div>
+                    </div>
+                    <h2>General Information</h2>
+                    <hr />
+                    <div class="row">
+                        <div class="col s12 l8">
+                            <input type="text" th:field="*{firstName}" placeholder="firstName"/>
+                            <input type="text" th:field="*{lastName}" placeholder="lastName"/>
+                            <input type="text" th:field="*{middleName}" placeholder="middleName"/>
+
+                            <input type="text" th:field="*{mbp}" placeholder="mbp"/>
+                            <input type="text" th:field="*{placeMet}" placeholder="placeMet"/>
+                            <select th:field="*{sexuality}">
+                                <option value="" disabled="disabled">Select a sexuality</option>
+                                <option value="Heterosexual" text="Heterosexual">Heterosexual</option>
+                                <option value="Homosexual" text="Homosexual">Homosexual</option>
+                                <option value="Bisexual" text="Bisexual">Bisexual</option>
+                                <option value="Other" text="Other">Other</option>
+                            </select>
+                            <select th:field="*{sex}">
+                                <option value="" disabled="disabled">Select a sex</option>
+                                <option value="Male" text="Male">Male</option>
+                                <option value="Female" text="Female">Female</option>
+                                <option value="Other" text="Other">Other</option>
+                            </select>
+                            <select th:field="*{status}">
+                                <option value="" disabled="disabled">Select a status</option>
+                                <option value="Active" text="Active">Active</option>
+                                <option value="Inactive" text="Inactive">Inactive</option>
+                                <option value="HOLD" text="HOLD">HOLD</option>
+                            </select>
+                            <input type="text" th:field="*{yearMet}" placeholder="yearMet"/>
+
+                            <input type="text" th:field="*{description}" placeholder="Description"/>
+                        </div>
+                    </div>
+                    <input type="hidden" th:field="*{id}"/>
+                    <button type="submit" th:text="${submit}" class="button"></button>
+                </form>
+            </div>
+
+        </div>
+        <div class="col-lg-6 col-xs-12 p-0 min-vh-100 tiledLogoBackground d-none d-lg-block">
+            <div th:replace="assets :: rightNavLoggedIn"></div>
+        </div>
+    </div>
+</div>
+<div th:replace="assets :: scripts"></div>
+</body>
+</html>

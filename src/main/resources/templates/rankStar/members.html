@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="assets :: head('Members')"></head>
+<body class="bg-dark">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 col-xs-12 p-0 bg-light min-vh-100">
+            <div th:replace="assets :: leftNav('Members Repository')"></div>
+        </div>
+        <div class="col-lg-6 col-xs-12 p-0 min-vh-100 logoBackground d-none d-lg-block">
+            <div th:replace="assets :: rightNav"></div>
+            <h1>Test</h1>
+        </div>
+    </div>
+</div>
+<div th:replace="assets :: scripts"></div>
+</body>
+</html>

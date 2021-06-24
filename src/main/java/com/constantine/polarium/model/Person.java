@@ -80,6 +80,10 @@ public class Person {
     this.dateCreated = LocalDateTime.now();
   }
 
+  public Person(){
+    this.dateCreated = LocalDateTime.now();
+  }
+
   //Getters and Setters
 
   public void setMbp(String mbp) {
