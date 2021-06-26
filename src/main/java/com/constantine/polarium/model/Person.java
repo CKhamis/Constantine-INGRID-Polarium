@@ -5,47 +5,36 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "person_id")
   private Long id;
 
   @Lob
   private byte[] profileIcon;
 
   //General Info
-  @Column(name = "first_name", nullable = false)
+  @Column(nullable = false)
   private String firstName;
-  @Column(name = "middle_name")
   private String middleName;
-  @Column(name = "last_name", nullable = false)
+  @Column(nullable = false)
   private String lastName;
-  @Column(name = "mb")
   private String mbp;
-  @Column(name = "place_met")
   private String placeMet;
-  @Column(name = "sexuality")
   private String sexuality;
-  @Column(name = "sex")
   private String sex;
-  @Column(name = "description")
   private String description;
-  @Column(name = "status")
   private String status;
-  @Column(name = "birthday")
   private Date birthday;
-  @Column(name = "year_met")
   private Integer yearMet;
-  @Column(name = "date_created")
   private LocalDateTime dateCreated;
   //Notes
   //private ArrayList<DatedMessage> notes;
@@ -61,7 +50,7 @@ public class Person {
   //private String considering;
 
   //cScore Value
-  @OneToMany
+  @ElementCollection
   private List<cScore> timeline = new ArrayList<>();
 
   //Constructors

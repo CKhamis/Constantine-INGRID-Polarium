@@ -7,6 +7,16 @@ h1{
   margin-bottom:0;
   line-height: 40px;
 }
+h2{
+  margin: 10px 0px 2px 0px;
+}
+
+hr{
+  border: 2px solid black;
+  margin: 0 0 10px 0;
+  opacity: 1;
+}
+
 .logoBackground{
   background-image: url();
   background-repeat: no-repeat;

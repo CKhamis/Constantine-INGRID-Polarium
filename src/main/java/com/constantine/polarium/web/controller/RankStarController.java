@@ -52,6 +52,6 @@ public class RankStarController {
     }
     model.addAttribute("action","/RankStar/Members");
     model.addAttribute("submit","Add");
-    return "rankStar/addNewMember"; //not sure what this does
+    return "rankStar/addNewMember";
   }
 }

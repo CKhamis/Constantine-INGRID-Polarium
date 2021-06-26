@@ -2,21 +2,19 @@ package com.constantine.polarium.model;
 
 import java.util.Date;
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Embeddable
 public class cScore {
-  @Id
+  /*@Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Long id;*/
 
-  @Column(name = "date", nullable = false)
+  @Column(nullable = false)
   private Date date;
-
-  @Column(name = "last_name", nullable = false)
   private long value;
 
   public cScore(Date date, long value) {
@@ -24,13 +22,13 @@ public class cScore {
     this.value = value;
   }
 
-  public Long getId() {
+  /*public Long getId() {
     return id;
   }
 
   public void setId(Long id) {
     this.id = id;
-  }
+  }*/
 
   public Date getDate() {
     return date;
