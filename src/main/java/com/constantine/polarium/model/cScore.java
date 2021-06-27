@@ -1,11 +1,10 @@
 package com.constantine.polarium.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Embeddable
 public class cScore {
@@ -14,6 +13,8 @@ public class cScore {
   private Date date;
   private long value;
   private String note;
+  @Length(max = 1)
+  private String momentum;
 
   public cScore(Date date, long value) {
     this.date = date;
@@ -21,6 +22,16 @@ public class cScore {
   }
 
   public cScore(){}
+
+  //Getters and Setters
+
+  public String getMomentum() {
+    return momentum;
+  }
+
+  public void setMomentum(String momentum) {
+    this.momentum = momentum;
+  }
 
   public String getNote() {
     return note;

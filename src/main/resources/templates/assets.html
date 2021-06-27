@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head(page_title)" lang="en">
+    <meta charset="UTF-8"/>
+    <meta description="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="icon" th:href="@{/static/favicon.png}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/app.css}" />
+
+    <title th:text="'POLARIUM | ' + ${page_title}">POLARIUM</title>
+</head>
+<body>
+
+    <div th:fragment="leftNav(title)" class="navbar-fixed">
+        <nav>
+            <div class="container-fluid row m-0 p-0">
+                <div class="col bg-light p-0">
+                    <div class="m-2 text-center text-white text-uppercase bg-dark">
+                        <h1 th:text="${title}"></h1>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div th:fragment="rightNavLoggedIn" class="navbar-fixed">
+        <nav>
+            <div class="container-fluid row m-0 p-0">
+                <div class="d-none d-lg-block col p-0">
+                    <div class="d-lg-block container-fluid bg-light" style="height:1rem;"> <a href="index.html" style="float:right; color:black; font-size: 10px;">EXIT</a> </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div th:fragment="rightNavLoggedOut" class="navbar-fixed">
+        <nav>
+            <div class="container-fluid row m-0 p-0">
+                <div class="d-none d-lg-block col p-0">
+                    <div class="d-lg-block container-fluid bg-light" style="height:1.5rem">
+                        <a style="float:right; color:black;" th:text="${serverName}"></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div th:fragment="flash" th:if="${flash != null}" class="container">
+        <i class="right material-icons" data-close="">close</i>
+        <div th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
+    </div>
+
+    <div th:fragment="scripts">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </div>
+</body>
+</html>
