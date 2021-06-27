@@ -36,14 +36,14 @@ public class Person {
   private Date birthday;
   private Integer yearMet;
   private LocalDateTime dateCreated;
-  //Notes
-  //private ArrayList<DatedMessage> notes;
 
   //Contact
-  //private TreeSet<DoubleText> socialMedia;
+  @ElementCollection
+  private List<DoubleText> socialMedia = new ArrayList<>();
 
   //Medical
-  //private TreeSet<DoubleText> drugsAndFrequency;
+  @ElementCollection
+  private List<DoubleText> drugsAndFrequency = new ArrayList<>();
 
   //Gift & Gift History
   //private ArrayList<DatedMessage> Incoming, Outgoing;
@@ -74,6 +74,22 @@ public class Person {
   }
 
   //Getters and Setters
+
+  public List<DoubleText> getSocialMedia() {
+    return socialMedia;
+  }
+
+  public void setSocialMedia(List<DoubleText> socialMedia) {
+    this.socialMedia = socialMedia;
+  }
+
+  public List<DoubleText> getDrugsAndFrequency() {
+    return drugsAndFrequency;
+  }
+
+  public void setDrugsAndFrequency(List<DoubleText> drugsAndFrequency) {
+    this.drugsAndFrequency = drugsAndFrequency;
+  }
 
   public void setMbp(String mbp) {
     this.mbp = mbp;

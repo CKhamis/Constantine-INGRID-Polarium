@@ -9,26 +9,26 @@ import javax.persistence.Id;
 
 @Embeddable
 public class cScore {
-  /*@Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;*/
 
   @Column(nullable = false)
   private Date date;
   private long value;
+  private String note;
 
   public cScore(Date date, long value) {
     this.date = date;
     this.value = value;
   }
 
-  /*public Long getId() {
-    return id;
+  public cScore(){}
+
+  public String getNote() {
+    return note;
   }
 
-  public void setId(Long id) {
-    this.id = id;
-  }*/
+  public void setNote(String note) {
+    this.note = note;
+  }
 
   public Date getDate() {
     return date;
