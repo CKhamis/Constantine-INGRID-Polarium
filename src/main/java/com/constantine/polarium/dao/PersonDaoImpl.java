@@ -32,7 +32,12 @@ public class PersonDaoImpl implements PersonDao{
 
   @Override
   public Person findById(Long id) {
-    //TODO: implement this method
+    List<Person> members = findAll();
+    for(Person p : members){
+      if(p.getId() == id){
+        return p;
+      }
+    }
     return null;
   }
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -46,13 +47,6 @@ public class RankStarController {
     return "redirect:/RankStar/Members/" + member.getId();
   }
 
-  @RequestMapping("RankStar/Members")
-  public String displayMembers(Model model){
-    List<Person> roster = personService.findAll();
-    model.addAttribute("members", roster);
-    return "rankStar/members";
-  }
-
   @RequestMapping("RankStar/Members/Add")
   public String formNewCategory(Model model) {
     if(!model.containsAttribute("person")) {
@@ -60,6 +54,24 @@ public class RankStarController {
     }
     model.addAttribute("action","/RankStar/Members");
     model.addAttribute("submit","Add");
-    return "RankStar/Members";
+    return "RankStar/addNewMember";
+  }
+
+  @RequestMapping("RankStar/Members")
+  public String displayMembers(Model model){
+    List<Person> roster = personService.findAll();
+    model.addAttribute("members", roster);
+    return "rankStar/members";
+  }
+
+  @RequestMapping("RankStar/Members/{personId}")
+  public String formEditMember(@PathVariable Long personId, Model model){
+    Person member = personService.findById(personId);
+    model.addAttribute("person", member);
+
+    List<Person> allMembers = personService.findAll();
+    model.addAttribute("members", allMembers);
+
+    return "rankStar/memberEditor";
   }
 }
