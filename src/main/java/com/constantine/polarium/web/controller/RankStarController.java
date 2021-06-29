@@ -68,7 +68,7 @@ public class RankStarController {
   public String formEditMember(@PathVariable Long personId, Model model){
     Person member = personService.findById(personId);
     model.addAttribute("person", member);
-
+    model.addAttribute("action","/RankStar/Members");
     List<Person> allMembers = personService.findAll();
     model.addAttribute("members", allMembers);
 

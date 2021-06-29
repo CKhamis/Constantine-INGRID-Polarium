@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="assets :: head('Members')"></head>
+<head th:replace="assets :: head('Edit Member')"></head>
 <body class="bg-dark">
 <div class="container-fluid mb-3">
     <div class="row">
         <div class="col-lg-6 col-xs-12 p-0 bg-light">
-            <div th:replace="assets :: leftNav('Member Edit')"></div>
+            <div th:replace="assets :: leftNav('Interpersonal Relationship Management')"></div>
         </div>
         <div class="col-lg-6 col-xs-12 p-0 logoBackground d-none d-lg-block">
             <div th:replace="assets :: rightNavLoggedIn"></div>
         </div>
     </div>
 </div>
-<div class="container-fluid mb-5">
+<form th:action="@{${action}}" method="post" th:object="${person}" class="container-fluid mb-5">
     <div class="container bg-light">
         <div class="row pt-2 pb-2">
             <div class="col-md-6">
@@ -21,7 +21,7 @@
                 <div class="btn-group" role="group">
                     <select class="form-control">
                         <option selected value="" disabled="disabled">Select a member</option>
-                        <option value="Active" th:each="member : ${members}" th:text="*{member.firstName}"></option>
+                        <option value="Active" th:each="member : ${members}" th:text="${member.firstName}"></option>
                     </select>
                     <button type="button" class="btn btn-secondary">Update</button>
                 </div>
@@ -34,7 +34,7 @@
 
                 <div class="btn-group" role="group" style="float:right; margin-right: 30px;">
                     <button type="button" class="btn btn-secondary">New</button>
-                    <button type="button" class="btn btn-secondary">Save</button>
+                    <button type="submit" class="btn btn-secondary">Save</button>
                     <!--<form th:action="@{|/RankStar/Members/${person.id}/delete|}" method="post">
                         <button type="submit" class="button">Delete</button>
                     </form>-->
@@ -43,23 +43,121 @@
         </div>
     </div>
     <!-- Content Body -->
-    <div class="container mt-3">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-md-3">
-                <div class="text-center">
-                    <img class="rounded">
+                <div class="container-fluid p-0">
+                    <img class="rounded" src="static/icons/No-image.png">
+                    <div class="btn-group w-100" role="group">
+                        <button type="button" class="btn btn-secondary">Upload</button>
+                        <button type="button" class="btn btn-secondary mr-3">Remove</button>
+                    </div>
+                </div>
+                <div class="text-center container-fluid">
                     <h2 class="text-white" th:text="${person.firstName} + ' ' + ${person.lastName}"></h2>
                     <p class="text-light" th:text="${person.placeMet}"></p>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="p-2">
-
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">General</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="Contact" aria-selected="false">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="medical-tab" data-toggle="tab" href="#medical" role="tab" aria-controls="Medical" aria-selected="false">Medical</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="giftIdeas-tab" data-toggle="tab" href="#giftIdeas" role="tab" aria-controls="Gift Ideas" aria-selected="false">Gift Ideas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="cScore-tab" data-toggle="tab" href="#cScore" role="tab" aria-controls="cScore" aria-selected="false">cScore</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content bg-light p-3" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="form-row row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="fnf">First name</label>
+                                    <input type="text" class="form-control" id="fnf" th:field="*{firstName}"
+                                           placeholder="First name" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="lnf">Last name</label>
+                                    <input type="text" class="form-control" id="lnf" th:field="*{lastName}"
+                                           placeholder="Last name" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="mnf">Middle name</label>
+                                    <input type="text" class="form-control" id="mnf"
+                                           th:field="*{middleName}" placeholder="Middle name">
+                                </div>
+                            </div>
+                            <div class="form-row row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="bf">Birthday</label>
+                                    <input id="bf" type="text" th:field="*{birthday}" placeholder="mm/dd/yyyy" class="form-control"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="sp">Sexuality</label>
+                                    <select th:field="*{sexuality}" id="sp" class="form-control">
+                                        <option value="" disabled="disabled">Select a sexuality</option>
+                                        <option value="Heterosexual" text="Heterosexual">Heterosexual</option>
+                                        <option value="Homosexual" text="Homosexual">Homosexual</option>
+                                        <option value="Bisexual" text="Bisexual">Bisexual</option>
+                                        <option value="Other" text="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="sxp">Sex</label>
+                                    <select th:field="*{sex}" id="sxp" class="form-control">
+                                        <option value="" disabled="disabled">Select a sex</option>
+                                        <option value="Male" text="Male">Male</option>
+                                        <option value="Female" text="Female">Female</option>
+                                        <option value="Other" text="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="mbpf">MBP</label>
+                                    <input type="text" th:field="*{mbp}" placeholder="mbp" id="mbpf" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-row row">
+                                <div class="col mb-3">
+                                    <label for="desf">Description</label>
+                                    <textarea type="text" th:field="*{description}" placeholder="Description" class="form-control" id="desf"/>
+                                </div>
+                            </div>
+                            <input type="hidden" th:field="*{id}"/>
+                        </div>
+                        <div class="tab-pane" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <p>Placeholder1</p>
+                        </div>
+                        <div class="tab-pane" id="medical" role="tabpanel" aria-labelledby="medical-tab">
+                            <p>Placeholder2</p>
+                        </div>
+                        <div class="tab-pane" id="giftIdeas" role="tabpanel" aria-labelledby="giftIdeas-tab">
+                            <p>Placeholder3</p>
+                        </div>
+                        <div class="tab-pane" id="cScore" role="tabpanel" aria-labelledby="cScore-tab">
+                            <p>Placeholder4</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</form>
+<footer class="fixed-bottom" id="asd">
+    <ul th:each="member : ${members}">
+        <li>
+            <a th:href="@{|/RankStar/Members/${member.id}|}" th:text="${member.firstName} + ' ' + ${member.lastName}"></a>
+        </li>
+    </ul>
+</footer>
 <div th:replace="assets :: scripts"></div>
 </body>
 </html>
