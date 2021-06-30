@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="btn-group" role="group" style="float:right; margin-right: 30px;">
-                    <button type="button" class="btn btn-secondary">New</button>
+                    <button type="button" class="btn btn-secondary" href="RankStar/Members/Add">New</button>
                     <button type="submit" class="btn btn-secondary">Save</button>
                     <!--<form th:action="@{|/RankStar/Members/${person.id}/delete|}" method="post">
                         <button type="submit" class="button">Delete</button>
@@ -47,7 +47,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="container-fluid p-0">
-                    <img class="rounded" src="static/icons/No-image.png">
+                    <img class="img-fluid" th:src="@{/icons/No-image.png}">
                     <div class="btn-group w-100" role="group">
                         <button type="button" class="btn btn-secondary">Upload</button>
                         <button type="button" class="btn btn-secondary mr-3">Remove</button>
@@ -58,8 +58,8 @@
                     <p class="text-light" th:text="${person.placeMet}"></p>
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="p-2">
+            <div class="col-md-9 p-0">
+                <div class="ml-md-2">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">General</a>
@@ -75,6 +75,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="cScore-tab" data-toggle="tab" href="#cScore" role="tab" aria-controls="cScore" aria-selected="false">cScore</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="relationship-tab" data-toggle="tab" href="#relationship" role="tab" aria-controls="Relationship" aria-selected="false">Relationship</a>
                         </li>
                     </ul>
                     <div class="tab-content bg-light p-3" id="myTabContent">
@@ -145,18 +148,37 @@
                         <div class="tab-pane" id="cScore" role="tabpanel" aria-labelledby="cScore-tab">
                             <p>Placeholder4</p>
                         </div>
+                        <div class="tab-pane" id="relationship" role="tabpanel" aria-labelledby="relationship-tab">
+                            <div class="form-row row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="ymf">Year Met</label>
+                                    <input type="text" th:field="*{yearMet}" placeholder="Enter Year" id="ymf" class="form-control"/>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="statp">Status</label>
+                                    <select th:field="*{status}" id="statp" class="form-control">
+                                        <option value="" disabled="disabled">Select a status</option>
+                                        <option value="Active" text="Active">Active</option>
+                                        <option value="Inactive" text="Inactive">Inactive</option>
+                                        <option value="HOLD" text="HOLD">HOLD</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="pmf">Place Met</label>
+                                    <input type="text" th:field="*{placeMet}" placeholder="" id="pmf" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </form>
-<footer class="fixed-bottom" id="asd">
-    <ul th:each="member : ${members}">
-        <li>
-            <a th:href="@{|/RankStar/Members/${member.id}|}" th:text="${member.firstName} + ' ' + ${member.lastName}"></a>
-        </li>
-    </ul>
+<footer class="fixed-bottom">
+    <div class="scrollmenu">
+        <a th:each="member : ${members}" th:href="@{|/RankStar/Members/${member.id}|}" th:text="${member.firstName} + ' ' + ${member.lastName}"></a>
+    </div>
 </footer>
 <div th:replace="assets :: scripts"></div>
 </body>
