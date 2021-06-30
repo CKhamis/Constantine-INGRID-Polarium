@@ -41,7 +41,7 @@ public class RankStarController {
 
     personService.save(member);
 
-    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Category successfully added!", FlashMessage.Status.SUCCESS));
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Category successfully added!", FlashMessage.Status.SUCCESS));
 
     // TODO: Redirect browser to /categories
     return "redirect:/RankStar/Members/" + member.getId();
@@ -68,10 +68,28 @@ public class RankStarController {
   public String formEditMember(@PathVariable Long personId, Model model){
     Person member = personService.findById(personId);
     model.addAttribute("person", member);
-    model.addAttribute("action","/RankStar/Members");
+    model.addAttribute("action","/RankStar/Members/" + personId);
     List<Person> allMembers = personService.findAll();
     model.addAttribute("members", allMembers);
 
     return "rankStar/memberEditor";
+  }
+
+  @RequestMapping(value = "RankStar/Members/{personId}", method = RequestMethod.POST)
+  public String updateCategory(@Valid Person person, BindingResult result, RedirectAttributes redirectAttributes) {
+    if(result.hasErrors()) {
+      // Include validation errors upon redirect
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.person",result);
+
+      // Add  person if invalid was received
+      redirectAttributes.addFlashAttribute("person",person);
+    }
+
+    personService.save(person);
+
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Person successfully updated", FlashMessage.Status.SUCCESS));
+
+    // Redirect back to the form
+    return "redirect:/RankStar/Members/" + person.getId();
   }
 }

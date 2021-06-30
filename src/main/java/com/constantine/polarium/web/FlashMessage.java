@@ -1,12 +1,18 @@
 package com.constantine.polarium.web;
 
 public class FlashMessage {
+  private String title;
   private String message;
   private Status status;
 
-  public FlashMessage(String message, Status status) {
+  public FlashMessage(String title, String message, Status status) {
+    this.title = title;
     this.message = message;
     this.status = status;
+  }
+
+  public String getTitle() {
+    return title;
   }
 
   public String getMessage() {

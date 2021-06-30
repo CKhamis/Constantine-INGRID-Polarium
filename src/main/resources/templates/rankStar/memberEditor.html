@@ -175,7 +175,9 @@
         </div>
     </div>
 </form>
+
 <footer class="fixed-bottom">
+    <div th:replace="assets :: flash"></div>
     <div class="scrollmenu">
         <a th:each="member : ${members}" th:href="@{|/RankStar/Members/${member.id}|}" th:text="${member.firstName} + ' ' + ${member.lastName}"></a>
     </div>
