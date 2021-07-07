@@ -16,28 +16,12 @@
     <div class="container bg-light">
         <div class="row pt-2 pb-2">
             <div class="col-md-6">
-                <button type="button" class="btn btn-link">< Go back</button>
-
-                <div class="btn-group" role="group">
-                    <select class="form-control">
-                        <option selected value="" disabled="disabled">Select a member</option>
-                        <option value="Active" th:each="member : ${members}" th:text="${member.firstName}"></option>
-                    </select>
-                    <button type="button" class="btn btn-secondary">Update</button>
-                </div>
+                <a th:href="@{/RankStar/Members/}"><button type="button" class="btn btn-link">< Go back</button></a>
             </div>
             <div class="col-md-6">
-                <div class="btn-group float-right" role="group" style="float:right">
-                    <button type="button" class="btn btn-secondary">Prev</button>
-                    <button type="button" class="btn btn-secondary mr-3">Next</button>
-                </div>
-
                 <div class="btn-group" role="group" style="float:right; margin-right: 30px;">
-                    <button type="button" class="btn btn-secondary" href="RankStar/Members/Add">New</button>
+                    <a th:href="@{/RankStar/Members/Add}"><button type="button" class="btn btn-secondary">New</button></a>
                     <button type="submit" class="btn btn-secondary">Save</button>
-                    <!--<form th:action="@{|/RankStar/Members/${person.id}/delete|}" method="post">
-                        <button type="submit" class="button">Delete</button>
-                    </form>-->
                 </div>
             </div>
         </div>
@@ -55,14 +39,14 @@
                 </div>
                 <div class="text-center container-fluid">
                     <h2 class="text-white" th:text="${person.firstName} + ' ' + ${person.lastName}"></h2>
-                    <p class="text-light" th:text="${person.placeMet}"></p>
+                    <p class="text-light" th:text="${person.relationship}"></p>
                 </div>
             </div>
             <div class="col-md-9 p-0">
                 <div class="ml-md-2">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">General</a>
+                            <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">General</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="Contact" aria-selected="false">Contact</a>
@@ -164,8 +148,8 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label for="pmf">Place Met</label>
-                                    <input type="text" th:field="*{placeMet}" placeholder="" id="pmf" class="form-control"/>
+                                    <label for="pmf">Relation</label>
+                                    <input type="text" th:field="*{relationship}" placeholder="" id="pmf" class="form-control"/>
                                 </div>
                             </div>
                         </div>

@@ -28,7 +28,7 @@ public class Person {
   @Column(nullable = false)
   private String lastName;
   private String mbp;
-  private String placeMet;
+  private String relationship;
   private String sexuality;
   private String sex;
   private String description;
@@ -47,7 +47,7 @@ public class Person {
 
   //Gift & Gift History
   //private ArrayList<DatedMessage> Incoming, Outgoing;
-  //private String considering;
+  private String considering;
 
   //cScore Value
   @ElementCollection
@@ -61,7 +61,7 @@ public class Person {
     this.mbp = builder.mbp;
     this.description = builder.description;
     this.birthday = builder.birthday;
-    this.placeMet = builder.placeMet;
+    this.relationship = builder.relationship;
     this.sex = builder.sex;
     this.sexuality = builder.sexuality;
     this.status = builder.status;
@@ -151,12 +151,12 @@ public class Person {
     this.mbp = mbp;
   }
 
-  public String getPlaceMet() {
-    return placeMet;
+  public String getRelationship() {
+    return relationship;
   }
 
-  public void setPlaceMet(String placeMet) {
-    this.placeMet = placeMet;
+  public void setRelationship(String relationship) {
+    this.relationship = relationship;
   }
 
   public String getSexuality() {
@@ -216,7 +216,7 @@ public class Person {
   }
 
   private static class PersonBuilder{
-    private String firstName, middleName, lastName, mbp, placeMet, sexuality, sex, description, status;
+    private String firstName, middleName, lastName, mbp, relationship, sexuality, sex, description, status;
     private Date birthday;
     private Integer yearMet;
 
@@ -225,8 +225,8 @@ public class Person {
       this.lastName = lastName;
     }
 
-    public PersonBuilder withPlaceMet(String placeMet) {
-      this.placeMet = placeMet;
+    public PersonBuilder withRelationship(String relationship) {
+      this.relationship = relationship;
       return this;
     }
 

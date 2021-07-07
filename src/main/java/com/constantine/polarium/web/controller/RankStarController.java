@@ -29,6 +29,7 @@ public class RankStarController {
   @RequestMapping(value = "/RankStar/Members", method = RequestMethod.POST)
   public String formNewMember(@Valid Person member, BindingResult result, RedirectAttributes redirectAttributes) {
     if(result.hasErrors()) {
+      //TODO: make it possible to have the birthday null
       // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category",result);
 
