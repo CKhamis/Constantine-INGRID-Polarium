@@ -37,6 +37,10 @@ public class Person {
   private Integer yearMet;
   private LocalDateTime dateCreated;
 
+  //Basic Communications
+  private String email;
+  private String phoneNumber;
+
   //Contact
   @ElementCollection
   private List<DoubleText> socialMedia = new ArrayList<>();
@@ -47,7 +51,7 @@ public class Person {
 
   //Gift & Gift History
   //private ArrayList<DatedMessage> Incoming, Outgoing;
-  private String considering;
+  private String giftsConsidering;
 
   //cScore Value
   @ElementCollection
@@ -74,6 +78,30 @@ public class Person {
   }
 
   //Getters and Setters
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public String getGiftsConsidering() {
+    return giftsConsidering;
+  }
+
+  public void setGiftsConsidering(String giftsConsidering) {
+    this.giftsConsidering = giftsConsidering;
+  }
 
   public List<DoubleText> getSocialMedia() {
     return socialMedia;

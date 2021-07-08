@@ -8,7 +8,7 @@
             <div th:replace="assets :: leftNav('Add New Member')"></div>
             <div class="container-fluid">
                 <a href="/index.html">< Return to Main</a>
-                <form th:action="@{${action}}" method="post" th:object="${person}" class="container">
+                <form th:action="@{${action}}" method="post" th:object="${person}" class="container" enctype="multipart/form-data">
                     <h2>Profile Image</h2>
                     <hr/>
                     <div class="form-row row">

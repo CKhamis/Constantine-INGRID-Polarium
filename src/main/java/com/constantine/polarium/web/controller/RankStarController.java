@@ -10,6 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -27,24 +30,18 @@ public class RankStarController {
   }
 
   @RequestMapping(value = "/RankStar/Members", method = RequestMethod.POST)
-  public String formNewMember(@Valid Person member, BindingResult result, RedirectAttributes redirectAttributes) {
+  public String formNewMember(@Valid Person member, @RequestParam MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes) {
     if(result.hasErrors()) {
       //TODO: make it possible to have the birthday null
-      // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.category",result);
-
-      // Add  category if invalid was received
       redirectAttributes.addFlashAttribute("person",member);
-
       // Redirect back to the form
       return "redirect:/RankStar/Members/Add";
     }
-
-    personService.save(member);
+    personService.save(member, file);
 
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Category successfully added!", FlashMessage.Status.SUCCESS));
 
-    // TODO: Redirect browser to /categories
     return "redirect:/RankStar/Members/" + member.getId();
   }
 
@@ -77,7 +74,7 @@ public class RankStarController {
   }
 
   @RequestMapping(value = "RankStar/Members/{personId}", method = RequestMethod.POST)
-  public String updateCategory(@Valid Person person, BindingResult result, RedirectAttributes redirectAttributes) {
+  public String updateMember(@Valid Person person, @RequestParam MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes) {
     if(result.hasErrors()) {
       // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.person",result);
@@ -86,11 +83,17 @@ public class RankStarController {
       redirectAttributes.addFlashAttribute("person",person);
     }
 
-    personService.save(person);
+    personService.save(person, file);
 
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Person successfully updated", FlashMessage.Status.SUCCESS));
 
     // Redirect back to the form
     return "redirect:/RankStar/Members/" + person.getId();
+  }
+
+  @RequestMapping("RankStar/Members/Resources/{personId}.jpg")
+  @ResponseBody
+  public byte[] profileIcon(@PathVariable Long personId) {
+    return personService.findById(personId).getProfileIcon();
   }
 }
