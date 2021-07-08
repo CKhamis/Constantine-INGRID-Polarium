@@ -12,7 +12,7 @@
         </div>
     </div>
 </div>
-<form th:action="@{${action}}" method="post" th:object="${person}" class="container-fluid mb-5">
+<form th:action="@{${action}}" method="post" th:object="${person}" class="container-fluid mb-5" enctype="multipart/form-data">
     <div class="container bg-light">
         <div class="row pt-2 pb-2">
             <div class="col">
@@ -144,6 +144,11 @@
                         </div>
                         <div class="tab-pane" id="cScore" role="tabpanel" aria-labelledby="cScore-tab">
                             <p>Placeholder4</p>
+                            <div class="file-wrapper">
+                                <input type="file" id="file" name="file"/>
+                                <span class="placeholder" data-placeholder="Choose an image...">Choose an image...</span>
+                                <label for="file" class="button">Browse</label>
+                            </div>
                         </div>
                         <div class="tab-pane" id="relationship" role="tabpanel" aria-labelledby="relationship-tab">
                             <div class="form-row row">
