@@ -1,1 +1,9 @@
-/data/database.mv.db
+/data
+.gradle/
+.idea/
+build/
+gradle/
+gradlew
+gradlew.bat
+h2-1.4.190.jar
+/src/main/resources/rankStar/

@@ -11,15 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Transient;
 
 @Entity
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  @Lob
-  private byte[] profileIcon;
+  private String profileIconName;
 
   //General Info
   @Column(nullable = false)
@@ -57,27 +56,22 @@ public class Person {
   @ElementCollection
   private List<cScore> timeline = new ArrayList<>();
 
-  //Constructors
-  public Person(PersonBuilder builder){
-    this.firstName = builder.firstName;
-    this.lastName = builder.lastName;
-    this.middleName = builder.middleName;
-    this.mbp = builder.mbp;
-    this.description = builder.description;
-    this.birthday = builder.birthday;
-    this.relationship = builder.relationship;
-    this.sex = builder.sex;
-    this.sexuality = builder.sexuality;
-    this.status = builder.status;
-    this.yearMet = builder.yearMet;
-    this.dateCreated = LocalDateTime.now();
-  }
-
-  public Person(){
-    this.dateCreated = LocalDateTime.now();
-  }
-
   //Getters and Setters
+
+  @Transient
+  public String getPhotosImagePath() {
+    if (profileIconName == null || id == null) return null;
+
+    return "src/main/resources/rankStar/profile-icons/" + id + "/" + profileIconName;
+  }
+
+  public String getProfileIconName() {
+    return profileIconName;
+  }
+
+  public void setProfileIconName(String profileIconName) {
+    this.profileIconName = profileIconName;
+  }
 
   public String getEmail() {
     return email;
@@ -137,14 +131,6 @@ public class Person {
 
   public void setId(Long id) {
     this.id = id;
-  }
-
-  public byte[] getProfileIcon() {
-    return profileIcon;
-  }
-
-  public void setProfileIcon(byte[] profileIcon) {
-    this.profileIcon = profileIcon;
   }
 
   public String getFirstName() {
@@ -241,65 +227,5 @@ public class Person {
 
   public void setTimeline(List<cScore> timeline) {
     this.timeline = timeline;
-  }
-
-  private static class PersonBuilder{
-    private String firstName, middleName, lastName, mbp, relationship, sexuality, sex, description, status;
-    private Date birthday;
-    private Integer yearMet;
-
-    public PersonBuilder(String firstName, String lastName) {
-      this.firstName = firstName;
-      this.lastName = lastName;
-    }
-
-    public PersonBuilder withRelationship(String relationship) {
-      this.relationship = relationship;
-      return this;
-    }
-
-    public PersonBuilder withMyersBriggs(String mbp) {
-      this.mbp = mbp;
-      return this;
-    }
-
-    public PersonBuilder withSexuality(String sexuality) {
-      this.sexuality = sexuality;
-      return this;
-    }
-
-    public PersonBuilder withSex(String sex) {
-      this.sex = sex;
-      return this;
-    }
-
-    public PersonBuilder withDescription(String description) {
-      this.description = description;
-      return this;
-    }
-
-    public PersonBuilder withStatus(String status) {
-      this.status = status;
-      return this;
-    }
-
-    public PersonBuilder withMiddleName(String middleName) {
-      this.middleName = middleName;
-      return this;
-    }
-
-    public PersonBuilder withBirthday(Date birthday) {
-      this.birthday = birthday;
-      return this;
-    }
-
-    public PersonBuilder withMyersBriggs(Integer yearMet) {
-      this.yearMet = yearMet;
-      return this;
-    }
-
-    public Person build() {
-      return new Person(this);
-    }
   }
 }
