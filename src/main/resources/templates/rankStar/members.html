@@ -16,6 +16,7 @@
             <div class="card-body">
                 <h3 th:text="*{member.firstName}" class="card-title"></h3>
                 <p class="card-text" th:text="*{member.description}"></p>
+                <img th:src="@{${member.photosImagePath}}" src="../"/>
             </div>
         </div>
     </div>
