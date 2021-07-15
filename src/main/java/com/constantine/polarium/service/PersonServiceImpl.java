@@ -29,14 +29,13 @@ public class PersonServiceImpl implements PersonService{
   @Override
   public void save(Person person, MultipartFile file) throws IOException {
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-    person.setProfileIconName(fileName);
+    if(!fileName.equals("")){
+      person.setProfileIconName(fileName);
+      String uploadDir = "src/main/resources/static/rankStar/profile-icons/" + person.getId();
+      FileUploadUtil.saveFile(uploadDir, fileName, file);
+    }
 
     personDao.save(person);
-
-    String uploadDir = "src/main/resources/rankStar/profile-icons/" + person.getId();
-
-    FileUploadUtil.saveFile(uploadDir, fileName, file);
-
   }
 
   @Override

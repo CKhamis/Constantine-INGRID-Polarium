@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +30,16 @@ public class RankStarController {
     return "login";
   }
 
+  @RequestMapping("RankStar/Members")
+  public String displayMembers(Model model){
+    List<Person> roster = personService.findAll();
+    model.addAttribute("members", roster);
+    return "rankStar/members";
+  }
+
+  //Adding New Members
   @RequestMapping("RankStar/Members/Add")
-  public String formNewCategory(Model model) {
+  public String formNewMember(Model model) {
     if(!model.containsAttribute("person")) {
       model.addAttribute("person",new Person());
     }
@@ -54,10 +63,31 @@ public class RankStarController {
     return new RedirectView("/RankStar/Members", true);
   }
 
-  @RequestMapping("RankStar/Members")
-  public String displayMembers(Model model){
-    List<Person> roster = personService.findAll();
-    model.addAttribute("members", roster);
-    return "rankStar/members";
+  //Editing New Members
+  @RequestMapping("RankStar/Members/{memberId}")
+  public String formEditMember(@PathVariable Long memberId, Model model){
+    Person member = personService.findById(memberId);
+    model.addAttribute("member", member);
+    model.addAttribute("action","/RankStar/Members/" + memberId);
+    List<Person> allMembers = personService.findAll();
+    model.addAttribute("members", allMembers);
+
+    return "rankStar/memberEditor";
+  }
+
+
+  @PostMapping("RankStar/Members/{personId}")
+  public String updateMember(@Valid Person member, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam MultipartFile image) throws IOException {
+    if(result.hasErrors()) {
+      // Include validation errors upon redirect
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
+      // Add  member if invalid was received
+      redirectAttributes.addFlashAttribute("member",member);
+    }
+
+    personService.save(member, image);
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Person successfully updated", FlashMessage.Status.SUCCESS));
+
+    return "redirect:/RankStar/Members/" + member.getId();
   }
 }

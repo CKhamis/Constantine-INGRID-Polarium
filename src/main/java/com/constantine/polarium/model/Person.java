@@ -61,8 +61,8 @@ public class Person {
   @Transient
   public String getPhotosImagePath() {
     if (profileIconName == null || id == null) return null;
-
-    return "src/main/resources/rankStar/profile-icons/" + id + "/" + profileIconName;
+    String path = "/rankStar/profile-icons/" + id + "/" + profileIconName;
+    return path;
   }
 
   public String getProfileIconName() {

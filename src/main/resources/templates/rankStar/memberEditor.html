@@ -12,7 +12,7 @@
         </div>
     </div>
 </div>
-<form th:action="@{${action}}" method="post" th:object="${person}" class="container-fluid mb-5" enctype="multipart/form-data">
+<form th:action="@{${action}}" method="post" th:object="${member}" class="container-fluid mb-5" enctype="multipart/form-data">
     <div class="container bg-light">
         <div class="row pt-2 pb-2">
             <div class="col">
@@ -29,15 +29,15 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="container-fluid p-0">
-                    <img class="img-fluid" th:src="@{${person.photosImagePath}}">
+                    <img class="img-fluid" th:src="@{${member.photosImagePath}}">
                     <div class="btn-group w-100" role="group">
-                        <button type="button" class="btn btn-secondary">Upload</button>
+                        <input type="file" class="form-control-file" id="file" name="image" accept="image/png, image/jpeg"/>
                         <button type="button" class="btn btn-secondary mr-3">Remove</button>
                     </div>
                 </div>
                 <div class="text-center container-fluid">
-                    <h2 class="text-white" th:text="${person.firstName} + ' ' + ${person.lastName}"></h2>
-                    <p class="text-light" th:text="${person.relationship}"></p>
+                    <h2 class="text-white" th:text="${member.firstName} + ' ' + ${member.lastName}"></h2>
+                    <p class="text-light" th:text="${member.relationship}"></p>
                 </div>
             </div>
             <div class="col-lg-9 p-0">
@@ -126,7 +126,6 @@
                                 </div>
                                 <div class="col-lg-6 mb-3">
                                     <label for="emf">Email</label>
-                                    <label for="emf">Email</label>
                                     <input type="email" th:field="*{email}" placeholder="Enter email" id="emf" class="form-control"/>
                                 </div>
                             </div>
@@ -144,11 +143,6 @@
                         </div>
                         <div class="tab-pane" id="cScore" role="tabpanel" aria-labelledby="cScore-tab">
                             <p>Placeholder4</p>
-                            <div class="file-wrapper">
-                                <input type="file" id="file" name="image" accept="image/png, image/jpeg"/>
-                                <span class="placeholder" data-placeholder="Choose an image...">Choose an image...</span>
-                                <label for="file" class="btb-secondary btn">Browse</label>
-                            </div>
                         </div>
                         <div class="tab-pane" id="relationship" role="tabpanel" aria-labelledby="relationship-tab">
                             <div class="form-row row">
