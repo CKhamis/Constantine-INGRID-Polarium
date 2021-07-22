@@ -1,6 +1,7 @@
 package com.constantine.polarium.web.controller;
 
 import com.constantine.polarium.model.Person;
+import com.constantine.polarium.model.cScore;
 import com.constantine.polarium.service.PersonService;
 import com.constantine.polarium.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,37 @@ public class RankStarController {
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Person successfully updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + member.getId();
+  }
+
+  //Editing cScores
+  @RequestMapping("RankStar/Members/{memberId}/EditScore")
+  public String cScoreRequest(@PathVariable Long memberId, Model model){
+    Person member = personService.findById(memberId);
+    model.addAttribute("member", member);
+
+    model.addAttribute("timeline", member.getTimeline());
+    model.addAttribute("score", new cScore());
+
+    model.addAttribute("action","/RankStar/Members/" + memberId + "/EditScore");
+    List<Person> allMembers = personService.findAll();
+    model.addAttribute("members", allMembers);
+
+    return "rankStar/cScoreEditor";
+  }
+
+
+  @PostMapping("RankStar/Members/{personId}/EditScore")
+  public String cScorePost(@PathVariable Long memberId, @Valid cScore cScore, BindingResult result, RedirectAttributes redirectAttributes){
+    if(result.hasErrors()) {
+      // Include validation errors upon redirect
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
+      // Add  member if invalid was received
+      //redirectAttributes.addFlashAttribute("member",member);
+    }
+
+    //personService.save(member, image);
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "info" + cScore.getDate(), FlashMessage.Status.SUCCESS));
+
+    return "redirect:/RankStar/Members/" + memberId + "/EditScore";
   }
 }
