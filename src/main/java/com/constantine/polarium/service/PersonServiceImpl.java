@@ -39,7 +39,11 @@ public class PersonServiceImpl implements PersonService{
       personDao.save(person);
     }
   }
+  public void save(Person person){
+    personDao.save(person);
+  }
 
-  @Override
+
+    @Override
   public void delete(Person person) { personDao.delete(person); }
 }

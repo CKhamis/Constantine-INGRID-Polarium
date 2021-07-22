@@ -93,15 +93,15 @@ public class RankStarController {
   }
 
   //Editing cScores
-  @RequestMapping("RankStar/Members/{memberId}/EditScore")
-  public String cScoreRequest(@PathVariable Long memberId, Model model){
-    Person member = personService.findById(memberId);
+  @RequestMapping("RankStar/Members/{personId}/EditScore")
+  public String cScoreRequest(@PathVariable Long personId, Model model){
+    Person member = personService.findById(personId);
     model.addAttribute("member", member);
 
     model.addAttribute("timeline", member.getTimeline());
     model.addAttribute("score", new cScore());
 
-    model.addAttribute("action","/RankStar/Members/" + memberId + "/EditScore");
+    model.addAttribute("action","/RankStar/Members/" + personId + "/EditScore");
     List<Person> allMembers = personService.findAll();
     model.addAttribute("members", allMembers);
 
@@ -110,17 +110,20 @@ public class RankStarController {
 
 
   @PostMapping("RankStar/Members/{personId}/EditScore")
-  public String cScorePost(@PathVariable Long memberId, @Valid cScore cScore, BindingResult result, RedirectAttributes redirectAttributes){
+  public String cScorePost(@PathVariable Long personId, @Valid cScore cScore, BindingResult result, RedirectAttributes redirectAttributes){
     if(result.hasErrors()) {
       // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
       // Add  member if invalid was received
       //redirectAttributes.addFlashAttribute("member",member);
     }
+    Person member = personService.findById(personId);
+    member.getTimeline().add(cScore);
 
-    //personService.save(member, image);
+    //TODO: Investigate if this deletes the profile image after saving
+    personService.save(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "info" + cScore.getDate(), FlashMessage.Status.SUCCESS));
 
-    return "redirect:/RankStar/Members/" + memberId + "/EditScore";
+    return "redirect:/RankStar/Members/" + personId + "/EditScore";
   }
 }
