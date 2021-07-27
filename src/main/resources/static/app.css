@@ -38,6 +38,18 @@ hr{
   background-size: 5%;
 }
 
+.nav-tabs .nav-link{
+  border: 1px solid #909090;
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+  color: white;
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius:0rem;
+}
+
 div.scrollmenu {
   background-color: #333;
   overflow: auto;

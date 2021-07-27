@@ -50,16 +50,11 @@
                         <a class="nav-link" id="cScore-tab" data-toggle="tab" href="#cScore"
                            role="tab" aria-controls="cScore" aria-selected="false">cScore</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="relationship-tab" data-toggle="tab"
-                           href="#relationship" role="tab" aria-controls="Relationship"
-                           aria-selected="false">Relationship</a>
-                    </li>
                 </ul>
                 <div class="tab-content bg-light py-4 px-4" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel"
                          aria-labelledby="home-tab">
-                        <form th:action="@{${action}}" method="post" th:object="${member}"
+                        <form th:action="@{${generalAction}}" method="post" th:object="${member}"
                               class="container-fluid" enctype="multipart/form-data">
 
                             <h2 class="mt-0">General Information</h2>
@@ -205,11 +200,31 @@
                         </div>-->
                     </div>
                     <div class="tab-pane" id="cScore" role="tabpanel" aria-labelledby="cScore-tab">
-                        <a>cScore Editor</a>
-                    </div>
-                    <div class="tab-pane" id="relationship" role="tabpanel"
-                         aria-labelledby="relationship-tab">
+                        <div class="container-fluid">
+                            <h2 class="mt-0">cScores Entered</h2>
+                            <hr/>
 
+                            <div th:each="point : ${timeline}" class="container">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 th:text="*{point.date}" class="card-title"></h4>
+                                        <p class="card-text" th:text="*{point.value}"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h2>new cScore</h2>
+                            <hr/>
+
+                            <form th:action="@{${timelineAction}}" method="post" th:object="${score}">
+                                <input type="text" th:field="*{date}" placeholder="mm/dd/yyyy" class="form-control"/>
+                                <input type="text" th:field="*{value}" placeholder="value" class="form-control"/>
+                                <input type="text" th:field="*{note}" placeholder="note" class="form-control"/>
+                                <input type="text" th:field="*{momentum}" placeholder="momentum" class="form-control"/>
+
+                                <button type="submit" class="btn btn-secondary">Save</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
