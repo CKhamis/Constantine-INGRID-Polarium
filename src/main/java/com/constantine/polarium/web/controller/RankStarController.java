@@ -64,20 +64,24 @@ public class RankStarController {
     return new RedirectView("/RankStar/Members", true);
   }
 
-  //Editing New Members
+  //Editing Members
   @RequestMapping("RankStar/Members/{memberId}")
   public String formEditMember(@PathVariable Long memberId, Model model){
     Person member = personService.findById(memberId);
     model.addAttribute("member", member);
-    model.addAttribute("action","/RankStar/Members/" + memberId);
+    model.addAttribute("generalAction","/RankStar/Members/" + memberId + "/EditGeneral");
     List<Person> allMembers = personService.findAll();
     model.addAttribute("members", allMembers);
+
+    model.addAttribute("timeline", member.getTimeline());
+    model.addAttribute("score", new cScore());
+    model.addAttribute("timelineAction","/RankStar/Members/" + memberId + "/EditScore");
 
     return "rankStar/memberEditor";
   }
 
 
-  @PostMapping("RankStar/Members/{personId}")
+  @PostMapping("RankStar/Members/{personId}/EditGeneral")
   public String updateMember(@Valid Person member, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam MultipartFile image) throws IOException {
     if(result.hasErrors()) {
       // Include validation errors upon redirect
@@ -87,40 +91,26 @@ public class RankStarController {
     }
 
     personService.save(member, image);
-    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Person successfully updated", FlashMessage.Status.SUCCESS));
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "General info successfully updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + member.getId();
   }
 
-  //Editing cScores
-  @RequestMapping("RankStar/Members/{memberId}/EditScore")
-  public String cScoreRequest(@PathVariable Long memberId, Model model){
-    Person member = personService.findById(memberId);
-    model.addAttribute("member", member);
-
-    model.addAttribute("timeline", member.getTimeline());
-    model.addAttribute("score", new cScore());
-
-    model.addAttribute("action","/RankStar/Members/" + memberId + "/EditScore");
-    List<Person> allMembers = personService.findAll();
-    model.addAttribute("members", allMembers);
-
-    return "rankStar/cScoreEditor";
-  }
-
-
   @PostMapping("RankStar/Members/{personId}/EditScore")
-  public String cScorePost(@PathVariable Long memberId, @Valid cScore cScore, BindingResult result, RedirectAttributes redirectAttributes){
+  public String cScorePost(@PathVariable Long personId, @Valid cScore cScore, BindingResult result, RedirectAttributes redirectAttributes){
     if(result.hasErrors()) {
       // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
       // Add  member if invalid was received
       //redirectAttributes.addFlashAttribute("member",member);
     }
+    Person member = personService.findById(personId);
+    member.getTimeline().add(cScore);
 
-    //personService.save(member, image);
-    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "info" + cScore.getDate(), FlashMessage.Status.SUCCESS));
+    //TODO: Investigate if this deletes the profile image after saving
+    personService.save(member);
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "cScore Updated", FlashMessage.Status.SUCCESS));
 
-    return "redirect:/RankStar/Members/" + memberId + "/EditScore";
+    return "redirect:/RankStar/Members/" + personId;
   }
 }

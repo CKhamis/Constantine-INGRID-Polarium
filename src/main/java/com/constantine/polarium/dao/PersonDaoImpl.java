@@ -32,13 +32,11 @@ public class PersonDaoImpl implements PersonDao{
 
   @Override
   public Person findById(Long id) {
-    List<Person> members = findAll();
-    for(Person p : members){
-      if(p.getId() == id){
-        return p;
-      }
-    }
-    return null;
+    Session session = sessionFactory.openSession();
+    Person p = session.get(Person.class,id);
+    Hibernate.initialize(p.getTimeline());
+    session.close();
+    return p;
   }
 
   @Override

@@ -18,6 +18,11 @@ hr{
   opacity: 1;
 }
 
+.gradientBackground{
+  background: rgb(2,0,36);
+  background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 51%, rgba(0,0,0,1) 100%);
+}
+
 .logoBackground{
   background-image: url();
   background-repeat: no-repeat;
@@ -31,6 +36,18 @@ hr{
   background-repeat: repeat;
   background-attachment: fixed;
   background-size: 5%;
+}
+
+.nav-tabs .nav-link{
+  border: 1px solid #909090;
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+  color: white;
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius:0rem;
 }
 
 div.scrollmenu {

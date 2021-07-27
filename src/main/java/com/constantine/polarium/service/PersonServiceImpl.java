@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ public class PersonServiceImpl implements PersonService{
   public void save(Person person, MultipartFile file) throws IOException {
     //TODO: Make it not required to upload profile image to save
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    Collections.sort(person.getTimeline());
     if(!fileName.equals("")){
       person.setProfileIconName(fileName);
       personDao.save(person);
@@ -39,6 +41,13 @@ public class PersonServiceImpl implements PersonService{
       personDao.save(person);
     }
   }
+
+  @Override
+  public void save(Person person){
+    Collections.sort(person.getTimeline());
+    personDao.save(person);
+  }
+
 
   @Override
   public void delete(Person person) { personDao.delete(person); }

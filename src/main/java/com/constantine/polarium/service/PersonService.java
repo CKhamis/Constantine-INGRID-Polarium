@@ -13,4 +13,6 @@ public interface PersonService {
   Person findById(Long id);
   void save(Person person, MultipartFile file) throws IOException;
   void delete(Person category);
+
+  void save(Person member);
 }

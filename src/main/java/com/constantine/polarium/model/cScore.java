@@ -2,21 +2,22 @@ package com.constantine.polarium.model;
 
 import org.hibernate.validator.constraints.Length;
 
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class cScore {
+public class cScore implements Comparable<cScore>{
 
-  @Column(nullable = false)
-  private Date date;
+  @Column(nullable = false, unique = true)
+  private LocalDate date;
   private long value;
   private String note;
-  @Length(max = 1)
+  @Column(length = 1)
   private String momentum;
 
-  public cScore(Date date, long value) {
+  public cScore(LocalDate date, long value) {
     this.date = date;
     this.value = value;
   }
@@ -41,11 +42,11 @@ public class cScore {
     this.note = note;
   }
 
-  public Date getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -55,5 +56,10 @@ public class cScore {
 
   public void setValue(long value) {
     this.value = value;
+  }
+
+  @Override
+  public int compareTo(cScore o) {
+    return this.date.compareTo(o.getDate());
   }
 }
