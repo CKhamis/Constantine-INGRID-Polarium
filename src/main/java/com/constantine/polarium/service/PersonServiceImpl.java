@@ -41,11 +41,14 @@ public class PersonServiceImpl implements PersonService{
       personDao.save(person);
     }
   }
+
+  @Override
   public void save(Person person){
+    Collections.sort(person.getTimeline());
     personDao.save(person);
   }
 
 
-    @Override
+  @Override
   public void delete(Person person) { personDao.delete(person); }
 }

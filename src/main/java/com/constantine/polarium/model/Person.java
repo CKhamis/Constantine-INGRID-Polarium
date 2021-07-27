@@ -225,4 +225,8 @@ public class Person {
   public List<cScore> getTimeline() {
     return timeline;
   }
+
+  public void setTimeline(ArrayList<cScore> timeline) {
+    this.timeline = timeline;
+  }
 }
