@@ -13,7 +13,7 @@ public class cScore {
   private Date date;
   private long value;
   private String note;
-  @Length(max = 1)
+  @Column(length = 1)
   private String momentum;
 
   public cScore(Date date, long value) {

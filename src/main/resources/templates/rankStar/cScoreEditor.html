@@ -34,7 +34,7 @@
 <footer class="fixed-bottom">
     <div th:replace="assets :: flash"></div>
     <div class="scrollmenu">
-        <a th:each="member : ${members}" th:href="@{|/RankStar/Members/${member.id}|}" th:text="${member.firstName} + ' ' + ${member.lastName}"></a>
+        <a th:each="member : ${members}" th:href="@{|/RankStar/Members/${member.id}/EditScore|}" th:text="${member.firstName} + ' ' + ${member.lastName}"></a>
     </div>
 </footer>
 <div th:replace="assets :: scripts"></div>
