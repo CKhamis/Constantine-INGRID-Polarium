@@ -2,6 +2,7 @@ package com.constantine.polarium.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -223,9 +224,5 @@ public class Person {
 
   public List<cScore> getTimeline() {
     return timeline;
-  }
-
-  public void setTimeline(List<cScore> timeline) {
-    this.timeline = timeline;
   }
 }

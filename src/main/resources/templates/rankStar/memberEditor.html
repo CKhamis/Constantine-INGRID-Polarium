@@ -201,16 +201,28 @@
                     </div>
                     <div class="tab-pane" id="cScore" role="tabpanel" aria-labelledby="cScore-tab">
                         <div class="container-fluid">
-                            <h2 class="mt-0">cScores Entered</h2>
+                            <h2 class="mt-0">cScore Timeline</h2>
                             <hr/>
 
-                            <div th:each="point : ${timeline}" class="container">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 th:text="*{point.date}" class="card-title"></h4>
-                                        <p class="card-text" th:text="*{point.value}"></p>
-                                    </div>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Value</th>
+                                            <th>Momentum</th>
+                                            <th>Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="point : ${timeline}">
+                                            <td th:text="*{point.date}"></td>
+                                            <td th:text="*{point.value}"></td>
+                                            <td th:text="*{point.momentum}"></td>
+                                            <td th:text="*{point.note}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                             <h2>new cScore</h2>

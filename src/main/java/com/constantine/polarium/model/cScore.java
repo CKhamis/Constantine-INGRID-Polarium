@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class cScore {
+public class cScore implements Comparable<cScore>{
 
   @Column(nullable = false)
   private Date date;
@@ -55,5 +55,10 @@ public class cScore {
 
   public void setValue(long value) {
     this.value = value;
+  }
+
+  @Override
+  public int compareTo(cScore o) {
+    return this.date.compareTo(o.getDate());
   }
 }
