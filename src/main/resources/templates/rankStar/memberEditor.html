@@ -51,7 +51,7 @@
                            role="tab" aria-controls="cScore" aria-selected="false">cScore</a>
                     </li>
                 </ul>
-                <div class="tab-content bg-light py-4 px-4" id="myTabContent">
+                <div class="tab-content bg-light py-4 px-4 mb-5" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel"
                          aria-labelledby="home-tab">
                         <form th:action="@{${generalAction}}" method="post" th:object="${member}"
@@ -225,16 +225,35 @@
                                 </table>
                             </div>
 
-                            <h2>new cScore</h2>
+                            <h2>New cScore</h2>
                             <hr/>
 
                             <form th:action="@{${timelineAction}}" method="post" th:object="${score}">
-                                <input type="text" th:field="*{date}" placeholder="mm/dd/yyyy" class="form-control"/>
-                                <input type="text" th:field="*{value}" placeholder="value" class="form-control"/>
-                                <input type="text" th:field="*{note}" placeholder="note" class="form-control"/>
-                                <input type="text" th:field="*{momentum}" placeholder="momentum" class="form-control"/>
+                                <div class="form-row row">
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="df">Date</label>
+                                        <input type="text" th:field="*{date}" placeholder="mm/dd/yyyy" class="form-control" id="df"/>
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="valf">cScore Value</label>
+                                        <input type="text" th:field="*{value}" placeholder="value" class="form-control" id="valf"/>
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <label for="momf">Momentum</label>
+                                        <input type="text" th:field="*{momentum}" placeholder="momentum" class="form-control" id="momf"/>
+                                    </div>
+                                </div>
 
-                                <button type="submit" class="btn btn-secondary">Save</button>
+                                <div class="form-row">
+                                    <label for="nf">Note</label>
+                                    <textarea type="text" th:field="*{note}" placeholder="note" class="form-control" id="nf"/>
+                                </div>
+
+                                <div class="form-row row mt-3">
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-secondary">Save</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

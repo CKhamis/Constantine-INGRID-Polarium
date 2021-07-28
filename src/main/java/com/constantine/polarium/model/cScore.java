@@ -11,13 +11,13 @@ import javax.persistence.Embeddable;
 public class cScore implements Comparable<cScore>{
 
   @Column(nullable = false, unique = true)
-  private LocalDate date;
+  private Date date;
   private long value;
   private String note;
   @Column(length = 1)
   private String momentum;
 
-  public cScore(LocalDate date, long value) {
+  public cScore(Date date, long value) {
     this.date = date;
     this.value = value;
   }
@@ -42,11 +42,11 @@ public class cScore implements Comparable<cScore>{
     this.note = note;
   }
 
-  public LocalDate getDate() {
+  public Date getDate() {
     return date;
   }
 
-  public void setDate(LocalDate date) {
+  public void setDate(Date date) {
     this.date = date;
   }
 

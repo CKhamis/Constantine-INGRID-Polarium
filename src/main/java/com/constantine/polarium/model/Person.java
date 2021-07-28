@@ -226,7 +226,7 @@ public class Person {
     return timeline;
   }
 
-  public void setTimeline(ArrayList<cScore> timeline) {
+  public void setTimeline(List<cScore> timeline) {
     this.timeline = timeline;
   }
 }

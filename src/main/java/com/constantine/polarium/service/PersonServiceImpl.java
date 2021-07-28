@@ -1,7 +1,9 @@
 package com.constantine.polarium.service;
 
 import com.constantine.polarium.dao.PersonDao;
+import com.constantine.polarium.model.DoubleText;
 import com.constantine.polarium.model.Person;
+import com.constantine.polarium.model.cScore;
 import com.constantine.polarium.web.FileUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,10 +30,22 @@ public class PersonServiceImpl implements PersonService{
   }
 
   @Override
-  public void save(Person person, MultipartFile file) throws IOException {
+  public void saveOverview(Person person, MultipartFile file) throws IOException {
+    //Get the other fields from the older version of the member
+    Person old = findById(person.getId());
+    List<DoubleText> socialMedia = old.getSocialMedia();
+    List<DoubleText> drugsAndFrequency = old.getDrugsAndFrequency();
+    List<cScore> timeline = old.getTimeline();
+
+    //Write these to the new version
+    person.setSocialMedia(socialMedia);
+    person.setDrugsAndFrequency(drugsAndFrequency);
+    person.setTimeline(timeline);
+
+    Collections.sort(person.getTimeline());
     //TODO: Make it not required to upload profile image to save
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-    Collections.sort(person.getTimeline());
+
     if(!fileName.equals("")){
       person.setProfileIconName(fileName);
       personDao.save(person);
@@ -43,7 +57,7 @@ public class PersonServiceImpl implements PersonService{
   }
 
   @Override
-  public void save(Person person){
+  public void saveOverview(Person person){
     Collections.sort(person.getTimeline());
     personDao.save(person);
   }

@@ -59,7 +59,7 @@ public class RankStarController {
       // Add  person if invalid was received
       redirectAttributes.addFlashAttribute("person",member);
     }
-    personService.save(member, file);
+    personService.saveOverview(member, file);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Person successfully updated", FlashMessage.Status.SUCCESS));
     return new RedirectView("/RankStar/Members", true);
   }
@@ -90,7 +90,7 @@ public class RankStarController {
       redirectAttributes.addFlashAttribute("member",member);
     }
 
-    personService.save(member, image);
+    personService.saveOverview(member, image);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "General info successfully updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + member.getId();
@@ -108,7 +108,7 @@ public class RankStarController {
     member.getTimeline().add(cScore);
 
     //TODO: Investigate if this deletes the profile image after saving
-    personService.save(member);
+    personService.saveOverview(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "cScore Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
