@@ -62,7 +62,6 @@ public class PersonServiceImpl implements PersonService{
     personDao.save(person);
   }
 
-
   @Override
   public void delete(Person person) { personDao.delete(person); }
 }

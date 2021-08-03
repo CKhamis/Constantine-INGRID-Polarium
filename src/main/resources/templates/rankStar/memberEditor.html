@@ -183,7 +183,41 @@
                     </div>
                     <div class="tab-pane" id="contact" role="tabpanel"
                          aria-labelledby="contact-tab">
+                        <h2 class="mt-0">All Contact</h2>
+                        <hr/>
 
+                        <div class="container">
+                            <div class="card" th:each="platform : ${contactList}">
+                                <div class="card-title">
+                                    <h2 th:text="*{platform.title}"></h2>
+                                </div>
+                                <div class="card-body">
+                                    <p th:text="*{platform.body}"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2>New Contact</h2>
+                        <hr/>
+
+                        <form th:action="@{${contactAction}}" method="post" th:object="${contact}">
+                            <div class="form-row row">
+                                <div class="col-lg-6 mb-3">
+                                    <label for="platf">Platform</label>
+                                    <input type="text" th:field="*{title}" placeholder="Enter platform" class="form-control" id="platf"/>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="usrf">Username</label>
+                                    <input type="text" th:field="*{body}" placeholder="Enter Username" class="form-control" id="usrf"/>
+                                </div>
+                            </div>
+
+                            <div class="form-row row mt-3">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-secondary">Save</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="tab-pane" id="medical" role="tabpanel"
                          aria-labelledby="medical-tab">

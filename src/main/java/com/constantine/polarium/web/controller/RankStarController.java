@@ -1,5 +1,6 @@
 package com.constantine.polarium.web.controller;
 
+import com.constantine.polarium.model.DoubleText;
 import com.constantine.polarium.model.Person;
 import com.constantine.polarium.model.cScore;
 import com.constantine.polarium.service.PersonService;
@@ -77,6 +78,10 @@ public class RankStarController {
     model.addAttribute("score", new cScore());
     model.addAttribute("timelineAction","/RankStar/Members/" + memberId + "/EditScore");
 
+    model.addAttribute("contactList", member.getSocialMedia());
+    model.addAttribute("contact", new DoubleText());
+    model.addAttribute("contactAction","/RankStar/Members/" + memberId + "/EditContact");
+
     return "rankStar/memberEditor";
   }
 
@@ -110,6 +115,24 @@ public class RankStarController {
     //TODO: Investigate if this deletes the profile image after saving
     personService.saveOverview(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "cScore Updated", FlashMessage.Status.SUCCESS));
+
+    return "redirect:/RankStar/Members/" + personId;
+  }
+
+  @PostMapping("RankStar/Members/{personId}/EditContact")
+  public String cScorePost(@PathVariable Long personId, @Valid DoubleText contact, BindingResult result, RedirectAttributes redirectAttributes){
+    if(result.hasErrors()) {
+      // Include validation errors upon redirect
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
+      // Add  member if invalid was received
+      //redirectAttributes.addFlashAttribute("member",member);
+    }
+    Person member = personService.findById(personId);
+    member.getSocialMedia().add(contact);
+
+    //TODO: Investigate if this deletes the profile image after saving
+    personService.saveOverview(member);
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "contact Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
   }

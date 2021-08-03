@@ -35,7 +35,7 @@ public class Person {
   private String status;
   private Date birthday;
   private Integer yearMet;
-  private LocalDateTime dateCreated;
+  private LocalDateTime dateCreated; //TODO: remove
 
   //Basic Communications
   private String email;
