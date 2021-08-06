@@ -35,6 +35,9 @@ public class PersonDaoImpl implements PersonDao{
     Session session = sessionFactory.openSession();
     Person p = session.get(Person.class,id);
     Hibernate.initialize(p.getTimeline());
+    Hibernate.initialize(p.getSocialMedia());
+    Hibernate.initialize(p.getDrugsAndFrequency());
+    Hibernate.initialize(p.getGiftList());
     session.close();
     return p;
   }

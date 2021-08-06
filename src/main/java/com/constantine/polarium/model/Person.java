@@ -35,7 +35,7 @@ public class Person {
   private String status;
   private Date birthday;
   private Integer yearMet;
-  private LocalDateTime dateCreated;
+  private LocalDateTime dateCreated; //TODO: remove
 
   //Basic Communications
   private String email;
@@ -50,8 +50,8 @@ public class Person {
   private List<DoubleText> drugsAndFrequency = new ArrayList<>();
 
   //Gift & Gift History
-  //private ArrayList<DatedMessage> Incoming, Outgoing;
-  private String giftsConsidering;
+  @ElementCollection
+  private List<Gift> giftList = new ArrayList<>();
 
   //cScore Value
   @ElementCollection
@@ -88,14 +88,6 @@ public class Person {
 
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
-  }
-
-  public String getGiftsConsidering() {
-    return giftsConsidering;
-  }
-
-  public void setGiftsConsidering(String giftsConsidering) {
-    this.giftsConsidering = giftsConsidering;
   }
 
   public List<DoubleText> getSocialMedia() {
@@ -228,5 +220,13 @@ public class Person {
 
   public void setTimeline(List<cScore> timeline) {
     this.timeline = timeline;
+  }
+
+  public List<Gift> getGiftList() {
+    return giftList;
+  }
+
+  public void setGiftList(List<Gift> giftList) {
+    this.giftList = giftList;
   }
 }
