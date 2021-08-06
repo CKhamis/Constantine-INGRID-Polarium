@@ -1,6 +1,7 @@
 package com.constantine.polarium.web.controller;
 
 import com.constantine.polarium.model.DoubleText;
+import com.constantine.polarium.model.Gift;
 import com.constantine.polarium.model.Person;
 import com.constantine.polarium.model.cScore;
 import com.constantine.polarium.service.PersonService;
@@ -82,6 +83,14 @@ public class RankStarController {
     model.addAttribute("contact", new DoubleText());
     model.addAttribute("contactAction","/RankStar/Members/" + memberId + "/EditContact");
 
+    model.addAttribute("medicalList", member.getDrugsAndFrequency());
+    model.addAttribute("drug", new DoubleText());
+    model.addAttribute("medicalAction","/RankStar/Members/" + memberId + "/EditMedical");
+
+    model.addAttribute("giftList", member.getGiftList());
+    model.addAttribute("gift", new Gift());
+    model.addAttribute("giftAction","/RankStar/Members/" + memberId + "/EditGift");
+
     return "rankStar/memberEditor";
   }
 
@@ -120,7 +129,7 @@ public class RankStarController {
   }
 
   @PostMapping("RankStar/Members/{personId}/EditContact")
-  public String cScorePost(@PathVariable Long personId, @Valid DoubleText contact, BindingResult result, RedirectAttributes redirectAttributes){
+  public String contactPost(@PathVariable Long personId, @Valid DoubleText contact, BindingResult result, RedirectAttributes redirectAttributes){
     if(result.hasErrors()) {
       // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
@@ -133,6 +142,42 @@ public class RankStarController {
     //TODO: Investigate if this deletes the profile image after saving
     personService.saveOverview(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "contact Updated", FlashMessage.Status.SUCCESS));
+
+    return "redirect:/RankStar/Members/" + personId;
+  }
+
+  @PostMapping("RankStar/Members/{personId}/EditGift")
+  public String cScorePost(@PathVariable Long personId, @Valid Gift gift, BindingResult result, RedirectAttributes redirectAttributes){
+    if(result.hasErrors()) {
+      // Include validation errors upon redirect
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
+      // Add  member if invalid was received
+      //redirectAttributes.addFlashAttribute("member",member);
+    }
+    Person member = personService.findById(personId);
+    member.getGiftList().add(gift);
+
+    //TODO: Investigate if this deletes the profile image after saving
+    personService.saveOverview(member);
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "gift Updated", FlashMessage.Status.SUCCESS));
+
+    return "redirect:/RankStar/Members/" + personId;
+  }
+
+  @PostMapping("RankStar/Members/{personId}/EditMedical")
+  public String medicalPost(@PathVariable Long personId, @Valid DoubleText drug, BindingResult result, RedirectAttributes redirectAttributes){
+    if(result.hasErrors()) {
+      // Include validation errors upon redirect
+      redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
+      // Add  member if invalid was received
+      //redirectAttributes.addFlashAttribute("member",member);
+    }
+    Person member = personService.findById(personId);
+    member.getDrugsAndFrequency().add(drug);
+
+    //TODO: Investigate if this deletes the profile image after saving
+    personService.saveOverview(member);
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "drug Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
   }

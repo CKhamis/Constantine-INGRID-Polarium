@@ -59,6 +59,7 @@ public class PersonServiceImpl implements PersonService{
   @Override
   public void saveOverview(Person person){
     Collections.sort(person.getTimeline());
+    Collections.sort(person.getGiftList());
     personDao.save(person);
   }
 
