@@ -11,8 +11,11 @@ import java.util.List;
 public interface PersonService {
   List<Person> findAll();
   Person findById(Long id);
-  void saveOverview(Person person, MultipartFile file) throws IOException;
+
+  void saveProfileIcon(MultipartFile file, Long personId) throws IOException;
+  void saveOverview(Person person);
+  void save(Person person);
+
   void delete(Person category);
   void saveNew(Person person, MultipartFile file) throws IOException;
-  void saveOverview(Person member);
 }

@@ -2,6 +2,7 @@ package com.constantine.polarium.service;
 
 import com.constantine.polarium.dao.PersonDao;
 import com.constantine.polarium.model.DoubleText;
+import com.constantine.polarium.model.Gift;
 import com.constantine.polarium.model.Person;
 import com.constantine.polarium.model.cScore;
 import com.constantine.polarium.web.FileUploadUtil;
@@ -30,36 +31,52 @@ public class PersonServiceImpl implements PersonService{
   }
 
   @Override
-  public void saveOverview(Person person, MultipartFile file) throws IOException {
+  public void saveProfileIcon(MultipartFile file, Long personId) throws IOException {
+    Person old = findById(personId);
+    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+    if(!fileName.equals("")){
+      old.setProfileIconName(fileName);
+      personDao.save(old);
+      String uploadDir = "src/main/resources/static/rankStar/profile-icons/" + personId;
+      FileUploadUtil.saveFile(uploadDir, fileName, file);
+    }else{
+      personDao.save(old);
+    }
+  }
+
+
+  @Override
+  public void saveOverview(Person person){
     //Get the other fields from the older version of the member
     Person old = findById(person.getId());
     List<DoubleText> socialMedia = old.getSocialMedia();
     List<DoubleText> drugsAndFrequency = old.getDrugsAndFrequency();
     List<cScore> timeline = old.getTimeline();
+    List<Gift> giftHistory = old.getGiftList();
+
+    //Sort the lists
+    Collections.sort(timeline);
+    Collections.sort(giftHistory);
 
     //Write these to the new version
     person.setSocialMedia(socialMedia);
     person.setDrugsAndFrequency(drugsAndFrequency);
     person.setTimeline(timeline);
+    person.setGiftList(giftHistory);
 
-    Collections.sort(person.getTimeline());
-    //TODO: Make it not required to upload profile image to save
-    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    //Transfer profile icon
+    person.setProfileIconName(old.getProfileIconName());
 
-    if(!fileName.equals("")){
-      person.setProfileIconName(fileName);
-      personDao.save(person);
-      String uploadDir = "src/main/resources/static/rankStar/profile-icons/" + person.getId();
-      FileUploadUtil.saveFile(uploadDir, fileName, file);
-    }else{
-      personDao.save(person);
-    }
+    personDao.save(person);
   }
 
   @Override
-  public void saveOverview(Person person){
+  public void save(Person person){
+    //Sort the lists
     Collections.sort(person.getTimeline());
     Collections.sort(person.getGiftList());
+
     personDao.save(person);
   }
 

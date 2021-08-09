@@ -46,13 +46,12 @@ public class RankStarController {
     if(!model.containsAttribute("person")) {
       model.addAttribute("person",new Person());
     }
-    model.addAttribute("action","/RankStar/Members");
+    model.addAttribute("action","/RankStar/Members/New");
     model.addAttribute("submit","Add");
     return "RankStar/addNewMember";
   }
 
-
-  @PostMapping("RankStar/Members")
+  @PostMapping("RankStar/Members/New")
   public RedirectView saveMember(Person member, @RequestParam("image") MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
     if(result.hasErrors()) {
       // Include validation errors upon redirect
@@ -62,7 +61,7 @@ public class RankStarController {
       redirectAttributes.addFlashAttribute("person",member);
     }
     personService.saveNew(member, file);
-    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Person successfully updated", FlashMessage.Status.SUCCESS));
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Person successfully added", FlashMessage.Status.SUCCESS));
     return new RedirectView("/RankStar/Members", true);
   }
 
@@ -91,12 +90,14 @@ public class RankStarController {
     model.addAttribute("gift", new Gift());
     model.addAttribute("giftAction","/RankStar/Members/" + memberId + "/EditGift");
 
+    model.addAttribute("iconAction","/RankStar/Members/" + memberId + "/EditIcon");
+
     return "rankStar/memberEditor";
   }
 
 
   @PostMapping("RankStar/Members/{personId}/EditGeneral")
-  public String updateMember(@Valid Person member, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam MultipartFile image) throws IOException {
+  public String updateMember(@Valid Person member, BindingResult result, RedirectAttributes redirectAttributes){
     if(result.hasErrors()) {
       // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
@@ -104,7 +105,7 @@ public class RankStarController {
       redirectAttributes.addFlashAttribute("member",member);
     }
 
-    personService.saveOverview(member, image);
+    personService.saveOverview(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "General info successfully updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + member.getId();
@@ -121,8 +122,7 @@ public class RankStarController {
     Person member = personService.findById(personId);
     member.getTimeline().add(cScore);
 
-    //TODO: Investigate if this deletes the profile image after saving
-    personService.saveOverview(member);
+    personService.save(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "cScore Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
@@ -139,8 +139,7 @@ public class RankStarController {
     Person member = personService.findById(personId);
     member.getSocialMedia().add(contact);
 
-    //TODO: Investigate if this deletes the profile image after saving
-    personService.saveOverview(member);
+    personService.save(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "contact Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
@@ -157,8 +156,7 @@ public class RankStarController {
     Person member = personService.findById(personId);
     member.getGiftList().add(gift);
 
-    //TODO: Investigate if this deletes the profile image after saving
-    personService.saveOverview(member);
+    personService.save(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "gift Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
@@ -175,10 +173,16 @@ public class RankStarController {
     Person member = personService.findById(personId);
     member.getDrugsAndFrequency().add(drug);
 
-    //TODO: Investigate if this deletes the profile image after saving
-    personService.saveOverview(member);
+    personService.save(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "drug Updated", FlashMessage.Status.SUCCESS));
 
+    return "redirect:/RankStar/Members/" + personId;
+  }
+
+  @PostMapping("RankStar/Members/{personId}/EditIcon")
+  public String iconPost(@Valid Person member, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam MultipartFile image, @PathVariable Long personId) throws IOException {
+    personService.saveProfileIcon(image, personId);
+    redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "General info successfully updated", FlashMessage.Status.SUCCESS));
     return "redirect:/RankStar/Members/" + personId;
   }
 }

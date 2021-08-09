@@ -50,24 +50,21 @@
                         <a class="nav-link" id="cScore-tab" data-toggle="tab" href="#cScore"
                            role="tab" aria-controls="cScore" aria-selected="false">cScore</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="icon-tab" data-toggle="tab" href="#icon"
+                           role="tab" aria-controls="cScore" aria-selected="false">Profile Image</a>
+                    </li>
                 </ul>
                 <div class="tab-content bg-light py-4 px-4 mb-5" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel"
                          aria-labelledby="home-tab">
                         <form th:action="@{${generalAction}}" method="post" th:object="${member}"
-                              class="container-fluid" enctype="multipart/form-data">
+                              class="container-fluid">
 
                             <h2 class="mt-0">General Information</h2>
                             <hr/>
 
                             <div class="form-row row">
-                                <div class="file-wrapper">
-                                    <input type="file" class="form-control-file" id="file" name="image"
-                                           accept="image/png, image/jpeg"/>
-                                    <span class="placeholder" data-placeholder="Choose an image...">Choose an image...</span>
-                                    <label for="file" class="button">Browse</label>
-                                </div>
-
                                 <div class="col-lg-4 mb-3">
                                     <label for="fnf">First name</label>
                                     <input type="text" class="form-control" id="fnf"
@@ -383,6 +380,25 @@
                                 </div>
                             </form>
                         </div>
+                    </div>
+                    <div class="tab-pane" id="icon" role="tabpanel"
+                         aria-labelledby="home-tab">
+                        <form th:action="@{${iconAction}}" method="post" th:object="${member}"
+                              class="container-fluid" enctype="multipart/form-data">
+                            <div class="form-row row">
+                                <div class="file-wrapper">
+                                    <input type="file" class="form-control-file" id="file" name="image"
+                                           accept="image/png, image/jpeg"/>
+                                    <span class="placeholder" data-placeholder="Choose an image...">Choose an image...</span>
+                                    <label for="file" class="button">Browse</label>
+                                </div>
+                            </div>
+                            <div class="form-row row">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-secondary">Save</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
