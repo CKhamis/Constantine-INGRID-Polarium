@@ -65,4 +65,15 @@ public class PersonServiceImpl implements PersonService{
 
   @Override
   public void delete(Person person) { personDao.delete(person); }
+
+  @Override
+  public void saveNew(Person person, MultipartFile file) throws IOException {
+    //TODO: Make it not required to upload profile image to save
+    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    person.setProfileIconName(fileName);
+    personDao.save(person);
+
+    String uploadDir = "src/main/resources/static/rankStar/profile-icons/" + person.getId();
+    FileUploadUtil.saveFile(uploadDir, fileName, file);
+  }
 }

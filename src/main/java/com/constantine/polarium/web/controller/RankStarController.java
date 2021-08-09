@@ -61,7 +61,7 @@ public class RankStarController {
       // Add  person if invalid was received
       redirectAttributes.addFlashAttribute("person",member);
     }
-    personService.saveOverview(member, file);
+    personService.saveNew(member, file);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "Person successfully updated", FlashMessage.Status.SUCCESS));
     return new RedirectView("/RankStar/Members", true);
   }
