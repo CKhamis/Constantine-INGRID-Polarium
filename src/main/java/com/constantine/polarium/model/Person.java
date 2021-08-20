@@ -42,11 +42,11 @@ public class Person {
   private String phoneNumber;
 
   //Contact
-  @OneToMany
+  @OneToMany(mappedBy = "person")
   private List<DoubleText> socialMedia = new ArrayList<>();
 
   //Medical
-  @OneToMany
+  @OneToMany(mappedBy = "person")
   private List<DoubleText> drugsAndFrequency = new ArrayList<>();
 
   //Gift & Gift History

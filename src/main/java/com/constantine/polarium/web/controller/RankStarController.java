@@ -4,7 +4,9 @@ import com.constantine.polarium.model.DoubleText;
 import com.constantine.polarium.model.Gift;
 import com.constantine.polarium.model.Person;
 import com.constantine.polarium.model.cScore;
+import com.constantine.polarium.service.ContactService;
 import com.constantine.polarium.service.GiftService;
+import com.constantine.polarium.service.MedicalService;
 import com.constantine.polarium.service.PersonService;
 import com.constantine.polarium.service.cScoreService;
 import com.constantine.polarium.web.FlashMessage;
@@ -34,6 +36,12 @@ public class RankStarController {
 
   @Autowired
   private GiftService giftService;
+
+  @Autowired
+  private ContactService contactService;
+
+  @Autowired
+  private MedicalService medicalService;
 
   @RequestMapping("/")
   public String test(Model model) {
@@ -127,9 +135,10 @@ public class RankStarController {
       // Add  member if invalid was received
       //redirectAttributes.addFlashAttribute("member",member);
     }
-    /*Person member = personService.findById(personId);
-    cScore.setPerson(member);*/
+    Person member = personService.findById(personId);
+    cScore.setPerson(member);
     cScoreService.save(cScore);
+
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "cScore Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
@@ -144,9 +153,9 @@ public class RankStarController {
       //redirectAttributes.addFlashAttribute("member",member);
     }
     Person member = personService.findById(personId);
-    member.getSocialMedia().add(contact);
+    contact.setPerson(member);
+    contactService.save(contact);
 
-    personService.save(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "contact Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
@@ -170,7 +179,7 @@ public class RankStarController {
   }
 
   @PostMapping("RankStar/Members/{personId}/EditMedical")
-  public String medicalPost(@PathVariable Long personId, @Valid DoubleText drug, BindingResult result, RedirectAttributes redirectAttributes){
+  public String medicalPost(@PathVariable Long personId, @Valid DoubleText medical, BindingResult result, RedirectAttributes redirectAttributes){
     if(result.hasErrors()) {
       // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
@@ -178,9 +187,9 @@ public class RankStarController {
       //redirectAttributes.addFlashAttribute("member",member);
     }
     Person member = personService.findById(personId);
-    member.getDrugsAndFrequency().add(drug);
+    medical.setPerson(member);
+    medicalService.save(medical);
 
-    personService.save(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "drug Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
