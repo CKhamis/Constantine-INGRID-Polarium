@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class DoubleText {
+public class Drug {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id", nullable = false)
@@ -38,7 +38,7 @@ public class DoubleText {
     this.id = id;
   }
 
-  public DoubleText(){}
+  public Drug(){}
 
   public String getTitle() {
     return title;

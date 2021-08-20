@@ -1,7 +1,7 @@
 package com.constantine.polarium.dao;
 
-import com.constantine.polarium.model.DoubleText;
-import com.constantine.polarium.model.Gift;
+import com.constantine.polarium.model.Contact;
+import com.constantine.polarium.model.Drug;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,12 @@ public class ContactDaoImpl implements ContactDao{
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<DoubleText> findAll() {
+  public List<Contact> findAll() {
     // Open a session
     Session session = sessionFactory.openSession();
 
     // Get all people with a Hibernate criteria
-    List<DoubleText> all = session.createCriteria(DoubleText.class).list();
+    List<Contact> all = session.createCriteria(Contact.class).list();
 
     // Close session
     session.close();
@@ -30,15 +30,15 @@ public class ContactDaoImpl implements ContactDao{
   }
 
   @Override
-  public DoubleText findById(Long id) {
+  public Contact findById(Long id) {
     Session session = sessionFactory.openSession();
-    DoubleText p = session.get(DoubleText.class,id);
+    Contact p = session.get(Contact.class,id);
     session.close();
     return p;
   }
 
   @Override
-  public void save(DoubleText contact) {
+  public void save(Contact contact) {
     // Open a session
     Session session = sessionFactory.openSession();
 
@@ -56,7 +56,7 @@ public class ContactDaoImpl implements ContactDao{
   }
 
   @Override
-  public void delete(DoubleText contact) {
+  public void delete(Contact contact) {
     // Open a session
     Session session = sessionFactory.openSession();
 

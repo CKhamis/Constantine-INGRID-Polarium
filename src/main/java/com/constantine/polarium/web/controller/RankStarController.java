@@ -1,6 +1,7 @@
 package com.constantine.polarium.web.controller;
 
-import com.constantine.polarium.model.DoubleText;
+import com.constantine.polarium.model.Contact;
+import com.constantine.polarium.model.Drug;
 import com.constantine.polarium.model.Gift;
 import com.constantine.polarium.model.Person;
 import com.constantine.polarium.model.cScore;
@@ -95,11 +96,11 @@ public class RankStarController {
     model.addAttribute("timelineAction","/RankStar/Members/" + memberId + "/EditScore");
 
     model.addAttribute("contactList", member.getSocialMedia());
-    model.addAttribute("contact", new DoubleText());
+    model.addAttribute("contact", new Contact());
     model.addAttribute("contactAction","/RankStar/Members/" + memberId + "/EditContact");
 
     model.addAttribute("medicalList", member.getDrugsAndFrequency());
-    model.addAttribute("drug", new DoubleText());
+    model.addAttribute("drug", new Drug());
     model.addAttribute("medicalAction","/RankStar/Members/" + memberId + "/EditMedical");
 
     model.addAttribute("giftList", member.getGiftList());
@@ -145,7 +146,7 @@ public class RankStarController {
   }
 
   @PostMapping("RankStar/Members/{personId}/EditContact")
-  public String contactPost(@PathVariable Long personId, @Valid DoubleText contact, BindingResult result, RedirectAttributes redirectAttributes){
+  public String contactPost(@PathVariable Long personId, @Valid Contact contact, BindingResult result, RedirectAttributes redirectAttributes){
     if(result.hasErrors()) {
       // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);
@@ -179,7 +180,7 @@ public class RankStarController {
   }
 
   @PostMapping("RankStar/Members/{personId}/EditMedical")
-  public String medicalPost(@PathVariable Long personId, @Valid DoubleText medical, BindingResult result, RedirectAttributes redirectAttributes){
+  public String medicalPost(@PathVariable Long personId, @Valid Drug medical, BindingResult result, RedirectAttributes redirectAttributes){
     if(result.hasErrors()) {
       // Include validation errors upon redirect
       redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.Person",result);

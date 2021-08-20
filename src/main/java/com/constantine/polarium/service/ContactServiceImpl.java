@@ -1,7 +1,8 @@
 package com.constantine.polarium.service;
 
 import com.constantine.polarium.dao.ContactDao;
-import com.constantine.polarium.model.DoubleText;
+import com.constantine.polarium.model.Contact;
+import com.constantine.polarium.model.Drug;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +14,20 @@ public class ContactServiceImpl implements ContactService{
   private ContactDao contactDao;
 
   @Override
-  public List<DoubleText> findAll() {
+  public List<Contact> findAll() {
     return contactDao.findAll();
   }
 
   @Override
-  public DoubleText findById(Long id) {
+  public Contact findById(Long id) {
     return contactDao.findById(id);
   }
 
   @Override
-  public void save(DoubleText contact){
+  public void save(Contact contact){
     contactDao.save(contact);
   }
 
   @Override
-  public void delete(DoubleText contact) { contactDao.delete(contact); }
+  public void delete(Contact contact) { contactDao.delete(contact); }
 }

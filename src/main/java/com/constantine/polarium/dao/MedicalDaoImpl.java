@@ -1,6 +1,6 @@
 package com.constantine.polarium.dao;
 
-import com.constantine.polarium.model.DoubleText;
+import com.constantine.polarium.model.Drug;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +15,12 @@ public class MedicalDaoImpl implements MedicalDao{
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<DoubleText> findAll() {
+  public List<Drug> findAll() {
     // Open a session
     Session session = sessionFactory.openSession();
 
     // Get all people with a Hibernate criteria
-    List<DoubleText> all = session.createCriteria(DoubleText.class).list();
+    List<Drug> all = session.createCriteria(Drug.class).list();
 
     // Close session
     session.close();
@@ -29,15 +29,15 @@ public class MedicalDaoImpl implements MedicalDao{
   }
 
   @Override
-  public DoubleText findById(Long id) {
+  public Drug findById(Long id) {
     Session session = sessionFactory.openSession();
-    DoubleText p = session.get(DoubleText.class,id);
+    Drug p = session.get(Drug.class,id);
     session.close();
     return p;
   }
 
   @Override
-  public void save(DoubleText medical) {
+  public void save(Drug medical) {
     // Open a session
     Session session = sessionFactory.openSession();
 
@@ -55,7 +55,7 @@ public class MedicalDaoImpl implements MedicalDao{
   }
 
   @Override
-  public void delete(DoubleText medical) {
+  public void delete(Drug medical) {
     // Open a session
     Session session = sessionFactory.openSession();
 
