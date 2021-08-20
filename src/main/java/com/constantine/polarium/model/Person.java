@@ -1,17 +1,14 @@
 package com.constantine.polarium.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
@@ -35,26 +32,25 @@ public class Person {
   private String status;
   private Date birthday;
   private Integer yearMet;
-  private LocalDateTime dateCreated; //TODO: remove
 
   //Basic Communications
   private String email;
   private String phoneNumber;
 
   //Contact
-  @ElementCollection
-  private List<DoubleText> socialMedia = new ArrayList<>();
+  @OneToMany(mappedBy = "person")
+  private List<Contact> socialMedia = new ArrayList<>();
 
   //Medical
-  @ElementCollection
-  private List<DoubleText> drugsAndFrequency = new ArrayList<>();
+  @OneToMany(mappedBy = "person")
+  private List<Drug> drugsAndFrequency = new ArrayList<>();
 
   //Gift & Gift History
-  @ElementCollection
+  @OneToMany(mappedBy = "person")
   private List<Gift> giftList = new ArrayList<>();
 
   //cScore Value
-  @ElementCollection
+  @OneToMany(mappedBy = "person")
   private List<cScore> timeline = new ArrayList<>();
 
   //Getters and Setters
@@ -90,32 +86,24 @@ public class Person {
     this.phoneNumber = phoneNumber;
   }
 
-  public List<DoubleText> getSocialMedia() {
+  public List<Contact> getSocialMedia() {
     return socialMedia;
   }
 
-  public void setSocialMedia(List<DoubleText> socialMedia) {
+  public void setSocialMedia(List<Contact> socialMedia) {
     this.socialMedia = socialMedia;
   }
 
-  public List<DoubleText> getDrugsAndFrequency() {
+  public List<Drug> getDrugsAndFrequency() {
     return drugsAndFrequency;
   }
 
-  public void setDrugsAndFrequency(List<DoubleText> drugsAndFrequency) {
+  public void setDrugsAndFrequency(List<Drug> drugsAndFrequency) {
     this.drugsAndFrequency = drugsAndFrequency;
   }
 
   public void setMbp(String mbp) {
     this.mbp = mbp;
-  }
-
-  public LocalDateTime getDateCreated() {
-    return dateCreated;
-  }
-
-  public void setDateCreated(LocalDateTime dateCreated) {
-    this.dateCreated = dateCreated;
   }
 
   public Long getId() {

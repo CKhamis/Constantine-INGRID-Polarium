@@ -191,6 +191,7 @@
                                     </div>
                                     <div class="card-body">
                                         <p th:text="*{platform.body}"></p>
+                                        <a th:href="*{platform.profileLink}" th:text="*{platform.profileLink}"></a>
                                     </div>
                                 </div>
                             </div>
@@ -207,6 +208,14 @@
                                     <div class="col-lg-6 mb-3">
                                         <label for="usrf">Username</label>
                                         <input type="text" th:field="*{body}" placeholder="Enter Username" class="form-control" id="usrf"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row row">
+                                    <div class="col-lg-6 mb-3">
+                                        <label for="linkf">Link</label>
+                                        <input type="text" th:field="*{profileLink}" placeholder="Enter link" class="form-control" id="linkf"/>
                                     </div>
                                 </div>
 

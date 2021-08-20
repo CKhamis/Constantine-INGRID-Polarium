@@ -1,7 +1,8 @@
 package com.constantine.polarium.service;
 
 import com.constantine.polarium.dao.PersonDao;
-import com.constantine.polarium.model.DoubleText;
+import com.constantine.polarium.model.Contact;
+import com.constantine.polarium.model.Drug;
 import com.constantine.polarium.model.Gift;
 import com.constantine.polarium.model.Person;
 import com.constantine.polarium.model.cScore;
@@ -50,8 +51,8 @@ public class PersonServiceImpl implements PersonService{
   public void saveOverview(Person person){
     //Get the other fields from the older version of the member
     Person old = findById(person.getId());
-    List<DoubleText> socialMedia = old.getSocialMedia();
-    List<DoubleText> drugsAndFrequency = old.getDrugsAndFrequency();
+    List<Contact> socialMedia = old.getSocialMedia();
+    List<Drug> drugsAndFrequency = old.getDrugsAndFrequency();
     List<cScore> timeline = old.getTimeline();
     List<Gift> giftHistory = old.getGiftList();
 

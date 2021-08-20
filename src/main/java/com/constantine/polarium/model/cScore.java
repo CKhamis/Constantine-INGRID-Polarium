@@ -6,9 +6,18 @@ import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
-@Embeddable
+@Entity
 public class cScore implements Comparable<cScore>{
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "id", nullable = false)
+  private Long id;
 
   @Column(nullable = false, unique = true)
   private Date date;
@@ -16,6 +25,17 @@ public class cScore implements Comparable<cScore>{
   private String note;
   @Column(length = 1)
   private String momentum;
+
+  @OneToOne
+  private Person person;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public cScore(Date date, long value) {
     this.date = date;
@@ -25,6 +45,14 @@ public class cScore implements Comparable<cScore>{
   public cScore(){}
 
   //Getters and Setters
+
+  public Person getPerson() {
+    return person;
+  }
+
+  public void setPerson(Person person) {
+    this.person = person;
+  }
 
   public String getMomentum() {
     return momentum;
