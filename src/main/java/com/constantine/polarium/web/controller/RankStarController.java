@@ -4,7 +4,9 @@ import com.constantine.polarium.model.DoubleText;
 import com.constantine.polarium.model.Gift;
 import com.constantine.polarium.model.Person;
 import com.constantine.polarium.model.cScore;
+import com.constantine.polarium.service.GiftService;
 import com.constantine.polarium.service.PersonService;
+import com.constantine.polarium.service.cScoreService;
 import com.constantine.polarium.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,12 @@ import javax.validation.Valid;
 public class RankStarController {
   @Autowired
   private PersonService personService;
+
+  @Autowired
+  private cScoreService cScoreService;
+
+  @Autowired
+  private GiftService giftService;
 
   @RequestMapping("/")
   public String test(Model model) {
@@ -119,10 +127,9 @@ public class RankStarController {
       // Add  member if invalid was received
       //redirectAttributes.addFlashAttribute("member",member);
     }
-    Person member = personService.findById(personId);
-    member.getTimeline().add(cScore);
-
-    personService.save(member);
+    /*Person member = personService.findById(personId);
+    cScore.setPerson(member);*/
+    cScoreService.save(cScore);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "cScore Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;
@@ -154,9 +161,9 @@ public class RankStarController {
       //redirectAttributes.addFlashAttribute("member",member);
     }
     Person member = personService.findById(personId);
-    member.getGiftList().add(gift);
+    gift.setPerson(member);
+    giftService.save(gift);
 
-    personService.save(member);
     redirectAttributes.addFlashAttribute("flash",new FlashMessage("Success", "gift Updated", FlashMessage.Status.SUCCESS));
 
     return "redirect:/RankStar/Members/" + personId;

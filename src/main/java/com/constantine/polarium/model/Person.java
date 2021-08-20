@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
@@ -35,26 +36,25 @@ public class Person {
   private String status;
   private Date birthday;
   private Integer yearMet;
-  private LocalDateTime dateCreated; //TODO: remove
 
   //Basic Communications
   private String email;
   private String phoneNumber;
 
   //Contact
-  @ElementCollection
+  @OneToMany
   private List<DoubleText> socialMedia = new ArrayList<>();
 
   //Medical
-  @ElementCollection
+  @OneToMany
   private List<DoubleText> drugsAndFrequency = new ArrayList<>();
 
   //Gift & Gift History
-  @ElementCollection
+  @OneToMany(mappedBy = "person")
   private List<Gift> giftList = new ArrayList<>();
 
   //cScore Value
-  @ElementCollection
+  @OneToMany(mappedBy = "person")
   private List<cScore> timeline = new ArrayList<>();
 
   //Getters and Setters
@@ -108,14 +108,6 @@ public class Person {
 
   public void setMbp(String mbp) {
     this.mbp = mbp;
-  }
-
-  public LocalDateTime getDateCreated() {
-    return dateCreated;
-  }
-
-  public void setDateCreated(LocalDateTime dateCreated) {
-    this.dateCreated = dateCreated;
   }
 
   public Long getId() {
